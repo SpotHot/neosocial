@@ -1,0 +1,7 @@
+web: bundle exec thin start -p $PORT
+worker: bundle exec sidekiq -c 4 -r ./lib/neosocial.rb
+
+Notes on "worker" process:
+The sidekiq -c 4 option creates 4 concurrent Processors, rather than the default of 25.
+-c, --concurrency INT            processor threads to use
+-r, --require [PATH|DIR]         Location of Rails application with workers or file to require

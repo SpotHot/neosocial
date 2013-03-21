@@ -1,9 +1,6 @@
 class App < Sinatra::Base
-  configure :production, :development do
-    enable :logging
-  end
 
-  use Rack::Session::Cookie , :secret => (ENV['SESSION_SECRET'] || "imebecauseeverytimeyouchangecsshtmlyoudontwanttobegoingbacktothebrowserandrefreshing18m45s")
+  use Rack::Session::Cookie , :secret => (ENV['SESSION_SECRET'] || "82e042cd6fde2bf1764f777236db799e")
 
   fields = ["id", "email-address", "first-name", "last-name", "headline", "industry", "picture-url", "public-profile-url", "location", "skills"]
 
@@ -69,8 +66,6 @@ class App < Sinatra::Base
   end
 
   get '/visualization' do
-    logger.info "get visualization"
-    puts logger.info
     @user = current_user
     random_number = 20 + Random.rand(31)
     @user.friend_matrix.sample(random_number).map{|fm| {"name" => fm[0], "follows" => fm[1]} }.to_json
